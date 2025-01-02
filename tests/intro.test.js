@@ -1,5 +1,10 @@
 import { describe, expect, it, test } from "vitest";
-import { fizzBuzz, max } from "../src/intro";
+import {
+  calculateAverage,
+  calculateFactorial,
+  fizzBuzz,
+  max,
+} from "../src/intro";
 
 describe("max", () => {
   it("should return the first argument if its greater", () => {
@@ -27,5 +32,38 @@ describe("fizzBuzz", () => {
   });
   it("should return the argument if arg is divisible by any other number", () => {
     expect(fizzBuzz(2)).toBe("2");
+  });
+});
+
+describe("calculateAverage", () => {
+  it("should return NaN if given an empty array", () => {
+    expect(calculateAverage([])).toBe(NaN);
+  });
+  it("should calculate the average of an array with single element", () => {
+    expect(calculateAverage([1])).toBe(1);
+  });
+  it("should calculate the average of an array with two elements", () => {
+    expect(calculateAverage([1, 2])).toBe(1.5);
+  });
+  it("should calculate the average of an array with three elements", () => {
+    expect(calculateAverage([1, 2, 3])).toBe(2);
+  });
+});
+
+describe("calculateFactorial", () => {
+  it("should return undefined if given -1", () => {
+    expect(calculateFactorial(-1)).toBe(undefined);
+  });
+  it("should return 1 if given 0", () => {
+    expect(calculateFactorial(0)).toBe(1);
+  });
+  it("should return 1 if given 1", () => {
+    expect(calculateFactorial(0)).toBe(1);
+  });
+  it("should return 2 if given 2", () => {
+    expect(calculateFactorial(2)).toBe(2);
+  });
+  it("should return 6 if given 3", () => {
+    expect(calculateFactorial(3)).toBe(6);
   });
 });
