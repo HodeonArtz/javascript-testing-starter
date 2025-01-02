@@ -14,6 +14,7 @@ import {
   getCoupons,
   isPriceInRange,
   isValidUsername,
+  Stack,
   validateUserInput,
 } from "../src/core";
 
@@ -143,4 +144,45 @@ describe("test suite", () => {
 
   it("test case 1", () => {});
   it("test case 2", () => {});
+});
+
+describe("Stack", () => {
+  it("should push item to stack", () => {
+    const stack = new Stack();
+    stack.push(0);
+    expect(stack.size()).toBe(1);
+  });
+  it("should pop item from stack", () => {
+    const stack = new Stack();
+    expect(() => stack.pop()).toThrow(/empty/i);
+    stack.push(0);
+    stack.pop();
+    expect(stack.size()).toBe(0);
+  });
+  it("should get last item from stack", () => {
+    const stack = new Stack();
+    expect(() => stack.peek()).toThrow(/empty/i);
+    stack.push(0);
+    stack.push(1);
+    expect(stack.peek()).toBe(1);
+  });
+  it("should check if stack is empty", () => {
+    const stack = new Stack();
+    expect(stack.isEmpty()).toBe(true);
+    stack.push(1);
+    expect(stack.isEmpty()).toBe(false);
+  });
+  it("should handle if size is valid", () => {
+    const stack = new Stack();
+    stack.push(0);
+    expect(typeof stack.size()).toBe("number");
+  });
+  it("should clear all items", () => {
+    const stack = new Stack();
+    stack.push(0);
+    stack.push(1);
+    expect(stack.isEmpty()).toBe(false);
+    stack.clear();
+    expect(stack.isEmpty()).toBe(true);
+  });
 });
