@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { calculateDiscount, getCoupons } from "../src/core";
+import {
+  calculateDiscount,
+  getCoupons,
+  isPriceInRange,
+  validateUserInput,
+} from "../src/core";
 
 describe("getCoupons", () => {
   const coupons = getCoupons();
@@ -38,9 +43,40 @@ describe("calculateDiscount", () => {
     expect(calculateDiscount(-10, "SAVE10")).toMatch(/invalid/i);
   });
   it("should handle non-string discount code", () => {
-    expect(calculateDiscount(-10, 10)).toMatch(/invalid/i);
+    expect(calculateDiscount(10, 10)).toMatch(/invalid/i);
   });
   it("should handle invalid discount code", () => {
     expect(calculateDiscount(10, "INVALID")).toBe(10);
   });
 });
+
+describe("validateUserInput", () => {
+  it("should return valid if given valid username and age", () => {
+    expect(validateUserInput("JohnSmith1234", 18)).toMatch(/successful/i);
+  });
+
+  it("should return invalid username", () => {
+    expect(validateUserInput(-33, 18)).toMatch(/invalid/i);
+    expect(validateUserInput("33", 18)).toMatch(/invalid/i);
+  });
+
+  it("should return invalid age", () => {
+    expect(validateUserInput("username", 17)).toMatch(/invalid/i);
+    expect(validateUserInput("username", "17")).toMatch(/invalid/i);
+  });
+});
+
+describe("isPriceInRange", () => {
+  it("should return false when the price is outside the range", () => {
+    expect(isPriceInRange(-10, 0, 100)).toBe(false);
+    expect(isPriceInRange(200, 0, 100)).toBe(false);
+  });
+  it("should return true when the price is equal to min or max", () => {
+    expect(isPriceInRange(0, 0, 100)).toBe(true);
+    expect(isPriceInRange(100, 0, 100)).toBe(true);
+  });
+  it("should return true when the price is within the range", () => {
+    expect(isPriceInRange(15, 0, 100)).toBe(true);
+  });
+});
+describe("isValidU", () => {});
